@@ -1,68 +1,97 @@
 import react, { useState, useRef, useEffect } from "react";
 
 const Card = (props) => {
-  let [count, setCount] = useState(0);
-  let faceUpCard = useRef("");
-  let isFaceUp = useRef(false);
+  const faceUpCard = useRef();
+  const isFaceUpRef = useRef(false);
+  const cardRef = useRef("");
+  const [compareCards, setCompareCards] = useState([]);
+  const [count, setCount] = useState(0);
   const [clickedCard, setClickedCard] = useState("");
   const cardBack = "Memory";
-
-  const turnOverCard = (e) => {
-    setCount((count) => (count += 1));
-
-    faceUpCard.current = e.target.id;
-    isFaceUp.current = true;
-    setClickedCard(faceUpCard.current);
+  // console.log(isFaceUpRef.current);
+  const getSymbolFromImgPath = (path) => {
+    const splitUrl = path.split(".")[0].split("/");
+    const cardSymbol = splitUrl[splitUrl.length - 1];
+    return cardSymbol;
   };
-  // compare 2 cards
-  // only allowed to click 2 squares
-  // turn cards over only after clicking the second square
-  // spread clickable area to whole div
-  // once clicked on, you should be about to reclick
+
+  const clickHandler = (e) => {
+    cardRef.current = e.target.id;
+    setCount((count) => count + 1);
+    faceUpCard.current = e.target.id;
+    setClickedCard(faceUpCard.current);
+    setCompareCards([...compareCards, faceUpCard.current]);
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      if (isFaceUp.current) {
-        isFaceUp.current = false;
-        console.log(count);
-      } else {
-        isFaceUp.current = true;
-      }
-    }, 1000);
-  }, [isFaceUp.current]);
+    console.log(compareCards);
 
-  const outputCards = (isFaceUp) => {
-    return props.card.map((card) => {
-      if (!isFaceUp) {
+    // setTimeout(() => {
+    //   if (isFaceUpRef.current !== cardRef.current) {
+    //     isFaceUpRef.current = false;
+    //   } else {
+    //     isFaceUpRef.current = true;
+    //     setCompareCards();
+    //   }
+    // }, 1000);
+  }, [count]);
+
+  const outputCards = () => {
+    return props.symbols.map((symbolPath, i) => {
+      const symbol = getSymbolFromImgPath(symbolPath);
+      const id = i + "_" + symbol;
+      console.log(id);
+      console.log(cardRef.current);
+      console.log(isFaceUpRef.current);
+      if (id !== cardRef.current) {
         return (
-          <div id={props.id} onClick={turnOverCard} className="card">
-            <span className="symbol">{cardBack}</span>
+          <div
+            ref={isFaceUpRef}
+            ref={cardRef}
+            id={id}
+            onClick={clickHandler}
+            className="card"
+          >
+            <span className="cardBack">{cardBack}</span>
           </div>
         );
-      } else if (faceUpCard.current === clickedCard && isFaceUp) {
+      } else if (id === cardRef.current) {
+        isFaceUpRef.current = true;
         return (
-          <div id={props.id} onClick={turnOverCard} className="card faceUp">
-            <img className="symbol" src={card} />
+          <div
+            ref={isFaceUpRef}
+            ref={cardRef}
+            id={id}
+            onClick={clickHandler}
+            className="card faceUp"
+          >
+            <img className="symbol" src={symbolPath} />
           </div>
         );
       }
     });
   };
-
-  return outputCards(isFaceUp.current);
+  return outputCards();
 };
 export default Card;
+//
+
+//   // compare 2 cards
+//   // only allowed to click 2 squares
+//   // turn cards over only after clicking the second square
+//   // spread clickable area to whole div
+//   // once clicked on, you should be able to reclick
 
 // differentiate between the two alike symbols ------
 // setInterval to turn cards back over
 // populate symbols array with double symbols
 // randomize output of symbols so doubles aren't next to each other
 
-// output grid of cards
-// each card has a common background on the "back"
-// each card has a unique symbol on the "front" (repeated twice)
+// output grid of cards ----------
+// each card has a common background on the "back" ----------
+// each card has a unique symbol on the "front" (repeated twice) ---------
 // array of jpg/png names that is randomized and applied to cards
-// click card, symbol shows => isFaceUp = true;
-// two cards match => isFaceUp remains true
+// click card, symbol shows => isFaceUpRef = true; --------------
+// two cards match => isFaceUpRef remains true
 // two cards don't match, setTimeout for 5 or so seconds
-// after 5 seconds isFaceUp => false, background shows
+// after 5 seconds isFaceUpRef => false, background shows

@@ -1,6 +1,4 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Card from "./components/card";
 import GameBoard from "./components/gameBoard";
 import bouquet from "./assets/img/bouquet.png";
 import puzzle from "./assets/img/puzzle.png";
