@@ -1,13 +1,15 @@
 import react, { useState, useRef, useEffect } from "react";
 
 const Card = (props) => {
-  let [faceUpCardCount, setFaceUpCardCount] = useState(0);
+  let [count, setCount] = useState(0);
   let faceUpCard = useRef("");
   let isFaceUp = useRef(false);
   const [clickedCard, setClickedCard] = useState("");
   const cardBack = "Memory";
 
   const turnOverCard = (e) => {
+    setCount((count) => (count += 1));
+
     faceUpCard.current = e.target.id;
     isFaceUp.current = true;
     setClickedCard(faceUpCard.current);
@@ -19,12 +21,10 @@ const Card = (props) => {
   // once clicked on, you should be about to reclick
 
   useEffect(() => {
-    setFaceUpCardCount((faceUpCardCount += 1));
-
     setTimeout(() => {
       if (isFaceUp.current) {
         isFaceUp.current = false;
-        console.log(faceUpCardCount);
+        console.log(count);
       } else {
         isFaceUp.current = true;
       }
