@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import Card from "./components/card";
+import GameBoard from "./components/gameBoard";
+import bouquet from "./assets/img/bouquet.png";
+import puzzle from "./assets/img/puzzle.png";
+import flipFlops from "./assets/img/flipFlops.png";
+import trees from "./assets/img/trees.png";
+import usb from "./assets/img/usb.png";
+import yarn from "./assets/img/yarn.png";
 
 function App() {
+  const symbols = [
+    bouquet,
+    puzzle,
+    usb,
+    trees,
+    flipFlops,
+    yarn,
+    bouquet,
+    puzzle,
+    flipFlops,
+    trees,
+    usb,
+    yarn,
+  ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 id="title">MEMORY</h1>
+      <div className="gameBoard">
+        <GameBoard symbols={symbols} />
+      </div>
+    </>
   );
 }
 
