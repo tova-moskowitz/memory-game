@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+h1 {
+  margin-left: 44%;
+}
+
 .gameBoard {
   display: flex;
   flex-flow: row wrap;

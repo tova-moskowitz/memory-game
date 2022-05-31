@@ -2,7 +2,7 @@ import "./App.css";
 import GameBoard from "./components/gameBoard";
 import bouquet from "./assets/img/bouquet.png";
 import puzzle from "./assets/img/puzzle.png";
-import flipFlops from "./assets/img/flipFlops.png";
+import flipflops from "./assets/img/flipflops.png";
 import trees from "./assets/img/trees.png";
 import usb from "./assets/img/usb.png";
 import yarn from "./assets/img/yarn.png";
@@ -13,11 +13,11 @@ function App() {
     puzzle,
     usb,
     trees,
-    flipFlops,
+    flipflops,
     yarn,
     bouquet,
     puzzle,
-    flipFlops,
+    flipflops,
     trees,
     usb,
     yarn,
