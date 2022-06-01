@@ -1,38 +1,64 @@
-/* @import url("https://fonts.googleapis.com/css?family=Didact+Gothic"); */
-@import url("https://fonts.googleapis.com/css?family=Concert+One");
+@import url("https://fonts.googleapis.com/css?family=Didact+Gothic");
+/* @import url("https://fonts.googleapis.com/css?family=Concert+One"); */
 
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
-h1 {
-  margin-left: 44%;
+#title {
+  margin-left: 18%;
+  font-family: "Didact Gothic";
 }
 
 .gameBoard {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 30px;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  grid-template-rows: repeat(3, 150px);
+  align-items: stretch;
+  justify-content: space-evenly;
+  box-shadow: 0 0 50px lightgray;
+  border: 1px lightgray solid;
+  margin: auto;
+  width: 60%;
+  padding: 20px;
 }
 
 .card {
   border-radius: 25px;
-  width: 150px;
-  height: 150px;
-  border: 4px black solid;
-  list-style-type: none;
-  background-color: aqua;
-  font-size: 35px;
-  font-family: "Concert One";
+  width: 135px;
+  height: 135px;
+  border: 1px lightgray solid;
+  background-color: #fff;
+  font-size: 15px;
   text-align: center;
-  line-height: 9rem;
+  box-shadow: 10px 5px 5px lightgray;
 }
 
-.card .symbol {
-  width: 70%;
-  height: 70%;
-  margin: 25px 0;
+.card .symbol,
+.cardBack {
+  width: 50%;
+  height: 50%;
+  margin: 35px 0;
+}
+
+#reshuffleBtn {
+  position: relative;
+  right: 0px;
+  display: block;
+  border-radius: 10px;
+  width: 135px;
+  height: 35px;
+  background-color: #fff;
+  text-align: center;
+  font-family: "Didact Gothic";
+}
+
+.reshuffleBtn:active {
+  box-shadow: 7px 6px 28px 1px gray;
+
+  transform: translateY(4px);
+  transform: scale(0.98);
+  /* Scaling button to 0.98 to its original size */
+  box-shadow: 3px 2px 22px 1px lightgray;
+  /* Lowering the shadow */
 }

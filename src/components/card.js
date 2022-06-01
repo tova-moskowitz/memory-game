@@ -1,12 +1,12 @@
 import react, { useState, useRef, useEffect } from "react";
+import cardBacking from "../assets/img/cardBack.jpeg";
 
 const Card = (props) => {
   let [matches, setMatches] = useState([]);
   let [activeCards, setActiveCards] = useState([]);
   const faceUpCardId = useRef(null);
-  const cardBack = "Memory";
-  let cardBackOrFront = "";
 
+  // console.log(props.symbols);
   const getSymbolFromImgPath = (path) => {
     const splitUrl = path.split(".")[0].split("/");
     const cardSymbol = splitUrl[splitUrl.length - 1];
@@ -14,44 +14,46 @@ const Card = (props) => {
   };
 
   const clickHandler = (e) => {
-    faceUpCardId.current = e.target.id;
-
-    if (activeCards.length < 2) {
+    faceUpCardId.current = e.currentTarget.id;
+    if (activeCards.length < 2 && !activeCards.includes(faceUpCardId.current)) {
       setActiveCards([...activeCards, faceUpCardId.current]);
     }
   };
 
   useEffect(() => {
-    if (activeCards.length === 2) {
+    if (activeCards.length === 2 && activeCards[0] !== activeCards[1]) {
       setTimeout(() => {
-        const strippedIds = activeCards.map((card) =>
-          card.replace(/[^a-z]/g, "")
+        const symbol = activeCards.map((card) =>
+          card.replace(/[^a-zA-Z]/g, "")
         );
 
-        if (strippedIds[0] === strippedIds[1]) {
-          matches.push(strippedIds[0]);
-          // setMatches((matches) => [...matches, strippedIds[0]]);
+        if (symbol[0] === symbol[1]) {
+          setMatches((matches) => [...matches, symbol[0]]);
         }
-
         setActiveCards([]);
-        console.log("time's up");
-      }, 5000);
+        console.log("Time's Up!");
+      }, 500);
+    }
+
+    console.log(matches);
+    if (matches.length === props.symbols.length / 2) {
+      alert("WINNER!!");
     }
   }, [activeCards]);
 
   const outputCards = () => {
     return props.symbols.map((symbolPath, i) => {
+      let cardBackOrFront = "";
       const symbol = getSymbolFromImgPath(symbolPath);
       const id = i + "_" + symbol;
-      cardBackOrFront =
-        matches.includes(symbol) ||
-        (activeCards.includes(id) && activeCards.length <= 2) ? (
-          <img className="symbol" src={symbolPath} />
-        ) : (
-          <span className="cardBack">{cardBack}</span>
-        );
+
+      if (matches.includes(symbol) || activeCards.includes(id)) {
+        cardBackOrFront = <img className="symbol" src={symbolPath} />;
+      } else {
+        cardBackOrFront = <img className="cardBack" src={cardBacking} />;
+      }
       return (
-        <div ref={faceUpCardId} id={id} onClick={clickHandler} className="card">
+        <div key={i} id={id} onClick={clickHandler} className="card">
           {cardBackOrFront}
         </div>
       );
@@ -60,16 +62,14 @@ const Card = (props) => {
   return outputCards();
 };
 export default Card;
-//
 
-// shuffle on reload
-// populate symbols array with double symbols
-// randomize output of symbols so doubles aren't next to each other
+// shuffle on reload and button click
 // WINNER
-// spread clickable area to whole div
-// sometimes you can't click for some reason
-// array of jpg/png names that is randomized and applied to cards
 
+// populate symbols array with double symbols-------------
+// randomize output of symbols so doubles aren't next to each other-----------
+// spread clickable area to whole div-----------------
+// sometimes you can't click for some reason---------------
 // compare 2 cards ----------
 // only allowed to click 2 squares -----------
 // turn cards over only after clicking the second square ---------
