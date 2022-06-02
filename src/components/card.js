@@ -3,9 +3,9 @@ import cardBacking from "../assets/img/cardBack.jpeg";
 
 const Card = (props) => {
   let [shuffledCards, setShuffledCards] = useState([]);
-  let [matches, setMatches] = useState([]);
   let [activeCards, setActiveCards] = useState([]);
-  let [movesCount, setMovesCount] = useState(1);
+  let [matches, setMatches] = useState([]);
+  let [movesCount, setMovesCount] = useState(0);
   const faceUpCardId = useRef(null);
 
   const getSymbolFromImgPath = (path) => {
@@ -21,18 +21,18 @@ const Card = (props) => {
       .map(({ value }) => value);
   };
 
+  const shuffleOnClick = () => {
+    setShuffledCards(returnShuffledCards());
+    setActiveCards([]);
+    setMatches([]);
+    setMovesCount(0);
+  };
+
   const clickCardHandler = (e) => {
     faceUpCardId.current = e.currentTarget.id;
     if (activeCards.length < 2 && !activeCards.includes(faceUpCardId.current)) {
       setActiveCards([...activeCards, faceUpCardId.current]);
     }
-  };
-
-  const shuffleOnClick = () => {
-    setShuffledCards(returnShuffledCards());
-    setActiveCards([]);
-    setMatches([]);
-    setMovesCount(1);
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Card = (props) => {
         }
         setActiveCards([]);
         console.log("Time's Up!");
-      }, 500);
+      }, 3000);
     }
 
     if (matches.length === props.symbols.length / 2) {

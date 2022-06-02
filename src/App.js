@@ -10,12 +10,12 @@ import yarn from "./assets/img/yarn.png";
 function App() {
   let symbols = [bouquet, puzzle, usb, trees, flipflops, yarn];
 
-  symbols = [...symbols, ...symbols];
+  symbols.push(...symbols);
 
   const returnShuffledCards = () => {
     return symbols
-      .map((value) => ({ value, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
+      .map((value) => ({ value, sortBy: Math.random() }))
+      .sort((a, b) => a.sortBy - b.sortBy)
       .map(({ value }) => value);
   };
 

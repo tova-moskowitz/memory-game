@@ -1,9 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Didact+Gothic");
-/* @import url("https://fonts.googleapis.com/css?family=Concert+One"); */
-
-.App {
-  /* text-align: center; */
-}
 
 #title {
   margin-left: 18%;
@@ -28,8 +23,6 @@
   width: 135px;
   height: 135px;
   border: 1px lightgray solid;
-  background-color: #fff;
-  font-size: 15px;
   text-align: center;
   box-shadow: 10px 5px 5px lightgray;
 }
@@ -42,23 +35,18 @@
 }
 
 #reshuffleBtn {
-  position: relative;
-  right: 0px;
-  display: block;
+  grid-column: 4 / 4;
   border-radius: 10px;
   width: 135px;
   height: 35px;
   background-color: #fff;
-  text-align: center;
   font-family: "Didact Gothic";
+  font-size: 15px;
+  box-shadow: 10px 5px 5px lightgray;
 }
 
 .reshuffleBtn:active {
-  box-shadow: 7px 6px 28px 1px gray;
-
   transform: translateY(4px);
   transform: scale(0.98);
-  /* Scaling button to 0.98 to its original size */
   box-shadow: 3px 2px 22px 1px lightgray;
-  /* Lowering the shadow */
 }
