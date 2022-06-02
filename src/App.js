@@ -7,25 +7,23 @@ import trees from "./assets/img/trees.png";
 import usb from "./assets/img/usb.png";
 import yarn from "./assets/img/yarn.png";
 
-function App(props) {
+function App() {
   let symbols = [bouquet, puzzle, usb, trees, flipflops, yarn];
-  let shuffled = [];
 
   symbols = [...symbols, ...symbols];
 
-  const shuffleCards = () => {
-    shuffled = symbols.map((value) => ({ value, sort: Math.random() }));
-    shuffled = shuffled.sort((a, b) => a.sort - b.sort);
-    let mapping = shuffled.map(({ value }) => value);
-    return mapping;
+  const returnShuffledCards = () => {
+    return symbols
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
   };
 
   return (
     <>
       <h1 id="title">Find All the Matching Pairs! </h1>
       <div className="gameBoard">
-        <GameBoard symbols={shuffleCards()} />
-        <button id="reshuffleBtn">Reshuffle</button>
+        <GameBoard symbols={returnShuffledCards()} />
       </div>
     </>
   );
